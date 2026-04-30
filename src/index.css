@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #F5F5F0;
+  color: #1A1C18;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@theme {
+  --color-primary: #778667;
+  --color-secondary: #D9E6CA;
+  --color-cream: #F5F5F0;
+  --color-luxury-bg: #F5F5F0;
+  --color-text-main: #1A1C18;
+  --color-accent: #778667;
+}
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@utility luxury-glass {
+  background: rgba(119, 134, 103, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(119, 134, 103, 0.1);
+}
+
+@utility shadow-premium {
+  box-shadow: 0 30px 60px -12px rgba(119, 134, 103, 0.15);
+}
+
+@utility font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
