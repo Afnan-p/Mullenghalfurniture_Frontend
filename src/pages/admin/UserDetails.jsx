@@ -219,7 +219,7 @@ const UserDetails = () => {
                 {/* Main Content */}
                 <div className="flex-1 space-y-8">
                     {/* Stats Header */}
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                         <div className="bg-white rounded-[2rem] p-6 shadow-premium border border-slate-100 relative overflow-hidden group">
                             <p className="text-slate-400 font-bold text-xs uppercase mb-1">Prev. Balance</p>
                             <p className="text-2xl font-black text-slate-800">${summary.previousBalance.toLocaleString()}</p>
@@ -246,37 +246,37 @@ const UserDetails = () => {
 
                     {/* Ledger Table */}
                     <div className="bg-white rounded-[2.5rem] shadow-premium border border-slate-100 overflow-hidden">
-                        <div className="p-8 border-b border-slate-50 flex flex-wrap items-center justify-between gap-4">
-                            <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                                 <History className="text-primary" size={24} />
+                        <div className="p-6 md:p-8 border-b border-slate-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <h3 className="text-lg md:text-xl font-bold text-slate-800 flex items-center gap-2">
+                                 <History className="text-primary w-5 h-5 md:w-6 md:h-6" />
                                  Transaction History
                              </h3>
-                             <div className="flex gap-3">
+                             <div className="flex w-full sm:w-auto gap-3">
                                  <button 
                                      onClick={handleExportPDF}
-                                     className="bg-white text-slate-600 border border-slate-200 px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-slate-50 transition-all"
+                                     className="flex-1 sm:flex-none bg-white text-slate-600 border border-slate-200 px-4 md:px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm flex items-center justify-center gap-2 hover:bg-slate-50 transition-all"
                                  >
-                                     <Download size={18} /> Export PDF
+                                     <Download className="w-4 h-4 md:w-[18px] md:h-[18px]" /> <span className="whitespace-nowrap">Export PDF</span>
                                  </button>
                                  <button 
                                      onClick={() => handleOpenTxModal()}
-                                     className="bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                                     className="flex-1 sm:flex-none bg-primary text-white px-4 md:px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
                                  >
-                                     <Plus size={18} /> Add Entry
+                                     <Plus className="w-4 h-4 md:w-[18px] md:h-[18px]" /> <span className="whitespace-nowrap">Add Entry</span>
                                  </button>
                              </div>
                          </div>
-                         <div className="overflow-x-auto">
-                             <table className="w-full text-left">
+                         <div className="overflow-x-auto w-full">
+                             <table className="w-full text-left min-w-[700px]">
                              <thead>
-                                 <tr className="bg-slate-50 text-slate-500 text-xs font-bold uppercase tracking-wider">
-                                     <th className="px-8 py-4">Date</th>
-                                     <th className="px-8 py-4">Product / Item</th>
-                                     <th className="px-8 py-4">Qty</th>
-                                     <th className="px-8 py-4">Price</th>
-                                     <th className="px-8 py-4">Type</th>
-                                     <th className="px-8 py-4">Total</th>
-                                     <th className="px-8 py-4 text-right">Actions</th>
+                                 <tr className="bg-slate-50 text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                                     <th className="px-4 md:px-8 py-3 md:py-4">Date</th>
+                                     <th className="px-4 md:px-8 py-3 md:py-4">Product / Item</th>
+                                     <th className="px-4 md:px-8 py-3 md:py-4">Qty</th>
+                                     <th className="px-4 md:px-8 py-3 md:py-4">Price</th>
+                                     <th className="px-4 md:px-8 py-3 md:py-4">Type</th>
+                                     <th className="px-4 md:px-8 py-3 md:py-4">Total</th>
+                                     <th className="px-4 md:px-8 py-3 md:py-4 text-right">Actions</th>
                                  </tr>
                              </thead>
                              <tbody className="divide-y divide-slate-100">
@@ -284,29 +284,29 @@ const UserDetails = () => {
                                      <tr><td colSpan="7" className="px-8 py-10 text-center text-slate-400 italic">No transactions recorded yet</td></tr>
                                  ) : transactions.map((tx) => (
                                      <tr key={tx._id} className="hover:bg-slate-50/50 transition-colors">
-                                         <td className="px-8 py-4">
+                                         <td className="px-4 md:px-8 py-3 md:py-4">
                                              <div className="flex items-center gap-2 text-slate-600 text-sm">
                                                  <Calendar size={14} className="text-slate-400" />
                                                  {new Date(tx.date).toLocaleDateString()}
                                              </div>
                                          </td>
-                                         <td className="px-8 py-4">
+                                         <td className="px-4 md:px-8 py-3 md:py-4">
                                              <p className="font-bold text-slate-800 text-sm">{tx.productName}</p>
                                              <p className="text-[10px] text-slate-400 uppercase font-black tracking-tighter">{tx.note}</p>
                                          </td>
-                                         <td className="px-8 py-4 text-sm text-slate-600 font-bold">{tx.quantity}</td>
-                                         <td className="px-8 py-4 text-sm text-slate-600">${tx.price}</td>
-                                         <td className="px-8 py-4">
+                                         <td className="px-4 md:px-8 py-3 md:py-4 text-sm text-slate-600 font-bold">{tx.quantity}</td>
+                                         <td className="px-4 md:px-8 py-3 md:py-4 text-sm text-slate-600">${tx.price}</td>
+                                         <td className="px-4 md:px-8 py-3 md:py-4">
                                              <span className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest ${
                                                  tx.type === 'debit' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'
                                              }`}>
                                                  {tx.type}
                                              </span>
                                          </td>
-                                         <td className={`px-8 py-4 font-black text-sm ${tx.type === 'debit' ? 'text-red-600' : 'text-green-600'}`}>
+                                         <td className={`px-4 md:px-8 py-3 md:py-4 font-black text-sm ${tx.type === 'debit' ? 'text-red-600' : 'text-green-600'}`}>
                                              {tx.type === 'debit' ? '+' : '-'}${tx.amount.toLocaleString()}
                                          </td>
-                                         <td className="px-8 py-4 text-right">
+                                         <td className="px-4 md:px-8 py-3 md:py-4 text-right">
                                              <div className="flex items-center justify-end gap-1">
                                                  <button 
                                                      onClick={() => handleOpenTxModal(tx)}

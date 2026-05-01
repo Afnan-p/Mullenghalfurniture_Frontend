@@ -45,9 +45,9 @@ const Layout = ({ children, title }) => {
 
                         <div className="max-w-7xl mx-auto">
                             {title && (
-                                <div className="mb-10">
-                                    <h2 className="text-4xl font-black text-slate-900 tracking-tight">{title}</h2>
-                                    <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-2">Administrative Control Panel</p>
+                                <div className="mb-6 md:mb-10">
+                                    <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">{title}</h2>
+                                    <p className="text-slate-400 font-bold uppercase tracking-widest text-[8px] md:text-[10px] mt-1 md:mt-2">Administrative Control Panel</p>
                                 </div>
                             )}
                             <motion.div
