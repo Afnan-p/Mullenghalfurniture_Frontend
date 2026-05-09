@@ -46,21 +46,23 @@ const AdminDashboard = () => {
         activities: [],
         chartData: []
     });
+    const [period, setPeriod] = useState('weekly');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                const { data } = await api.get('/transactions/stats');
-                setStats(data);
-            } catch (error) {
-                console.error('Stats error', error);
-            } finally {
-                setLoading(false);
-            }
-        };
         fetchStats();
-    }, []);
+    }, [period]);
+
+    const fetchStats = async () => {
+        try {
+            const { data } = await api.get(`/transactions/stats?period=${period}`);
+            setStats(data);
+        } catch (error) {
+            console.error('Stats error', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const statCards = [
         { 
@@ -101,7 +103,7 @@ const AdminDashboard = () => {
         },
     ];
 
-    if (loading) {
+    if (loading && stats.chartData.length === 0) {
         return (
             <Layout title="Admin Overview">
                 <div className="min-h-[60vh] flex items-center justify-center">
@@ -134,7 +136,7 @@ const AdminDashboard = () => {
                             <div className="flex items-end gap-3">
                                 <h4 className="text-3xl font-black text-slate-800 tracking-tight">{card.value}</h4>
                                 <div className={`flex items-center gap-0.5 mb-1 text-[10px] font-black px-1.5 py-0.5 rounded-full ${card.trend >= 0 ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
-                                    {card.trend >= 0 ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
+                                    {card.trend >= 0 ? <Plus size={8} /> : <TrendingDown size={10} />}
                                     {Math.abs(card.trend)}%
                                 </div>
                             </div>
@@ -159,8 +161,18 @@ const AdminDashboard = () => {
                             <p className="text-slate-400 text-sm font-medium mt-1">Real-time financial performance overview</p>
                         </div>
                         <div className="flex bg-slate-50 p-1.5 rounded-2xl">
-                            <button className="px-5 py-2.5 bg-white shadow-sm rounded-xl text-xs font-black text-slate-800">Weekly</button>
-                            <button className="px-5 py-2.5 text-xs font-bold text-slate-400 hover:text-slate-600">Monthly</button>
+                            <button 
+                                onClick={() => setPeriod('weekly')}
+                                className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all ${period === 'weekly' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+                            >
+                                Weekly
+                            </button>
+                            <button 
+                                onClick={() => setPeriod('monthly')}
+                                className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all ${period === 'monthly' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+                            >
+                                Monthly
+                            </button>
                         </div>
                     </div>
                     
