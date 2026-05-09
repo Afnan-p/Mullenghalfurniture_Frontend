@@ -59,7 +59,7 @@ const EnquiryManagement = () => {
 
     return (
         <Layout title="Enquiry Management">
-            <div className="w-full max-w-full overflow-x-hidden px-2 sm:px-4 lg:px-0">
+            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
                 {loading ? (
                     <div className="flex justify-center py-20">
                         <Loader2 className="animate-spin text-primary" size={40} />
@@ -87,7 +87,7 @@ const EnquiryManagement = () => {
                             >
                                 <div className="p-4 sm:p-6 lg:p-8">
                                     {/* Header */}
-                                    <div className="flex flex-col xl:flex-row xl:items-start xl:justify-between gap-6 mb-8">
+                                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
                                         {/* User Info */}
                                         <div className="flex items-start gap-4 sm:gap-5 min-w-0">
                                             <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-primary flex-shrink-0">
@@ -105,26 +105,27 @@ const EnquiryManagement = () => {
 
                                                 <div className="flex flex-wrap items-center gap-2 mt-3">
                                                     <span
-                                                        className={`px-3 sm:px-4 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase ${getStatusBadge(
+                                                        className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider ${getStatusBadge(
                                                             enquiry.status
                                                         )}`}
                                                     >
                                                         {enquiry.status}
                                                     </span>
 
-                                                    <span className="text-[10px] sm:text-xs text-slate-400 flex items-center gap-1 break-all">
-                                                        <Calendar size={12} />
+                                                    <span className="text-[10px] sm:text-xs text-slate-400 font-medium flex items-center gap-1.5 whitespace-nowrap">
+                                                        <Calendar size={12} className="opacity-70" />
                                                         {new Date(
                                                             enquiry.date
-                                                        ).toLocaleString()}
+                                                        ).toLocaleDateString()} • {new Date(
+                                                            enquiry.date
+                                                        ).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* Buttons */}
-                                        <div className="w-full xl:w-auto overflow-x-auto">
-                                            <div className="flex items-center gap-3 min-w-max pb-2">
+                                        <div className="w-full lg:w-auto">
+                                            <div className="flex flex-wrap items-center gap-3">
                                                 <button
                                                     onClick={() =>
                                                         updateStatus(
@@ -132,7 +133,7 @@ const EnquiryManagement = () => {
                                                             'confirmed'
                                                         )
                                                     }
-                                                    className="flex-none px-4 sm:px-5 py-2.5 bg-blue-100 text-blue-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2"
+                                                    className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-blue-50 text-blue-700 rounded-2xl font-bold text-sm hover:bg-blue-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border border-blue-100/50 shadow-sm"
                                                 >
                                                     <CheckCircle2 size={16} />
                                                     Confirm
@@ -145,7 +146,7 @@ const EnquiryManagement = () => {
                                                             'rejected'
                                                         )
                                                     }
-                                                    className="flex-none px-4 sm:px-5 py-2.5 bg-red-100 text-red-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-red-600 hover:text-white transition-all flex items-center gap-2"
+                                                    className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-red-50 text-red-700 rounded-2xl font-bold text-sm hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border border-red-100/50 shadow-sm"
                                                 >
                                                     <XCircle size={16} />
                                                     Reject
@@ -158,7 +159,7 @@ const EnquiryManagement = () => {
                                                             'completed'
                                                         )
                                                     }
-                                                    className="flex-none px-4 sm:px-5 py-2.5 bg-green-100 text-green-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-green-600 hover:text-white transition-all flex items-center gap-2"
+                                                    className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-green-50 text-green-700 rounded-2xl font-bold text-sm hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border border-green-100/50 shadow-sm"
                                                 >
                                                     <CheckCircle2 size={16} />
                                                     Complete
@@ -173,11 +174,11 @@ const EnquiryManagement = () => {
                                             Requested Products
                                         </h4>
 
-                                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
                                             {enquiry.products.map((item, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-3 shadow-sm border border-slate-100 min-w-0"
+                                                    className="bg-white p-4 rounded-2xl flex items-start sm:items-center justify-between gap-3 shadow-sm border border-slate-100 group hover:border-primary/20 transition-colors"
                                                 >
                                                     <div className="flex items-center gap-3 min-w-0">
                                                         <div className="w-10 h-10 bg-primary/5 text-primary rounded-lg flex items-center justify-center flex-shrink-0">
