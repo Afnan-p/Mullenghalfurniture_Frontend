@@ -59,13 +59,13 @@ const EnquiryManagement = () => {
 
     return (
         <Layout title="Enquiry Management">
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+            <div className="w-full px-0 sm:px-2">
                 {loading ? (
                     <div className="flex justify-center py-20">
                         <Loader2 className="animate-spin text-primary" size={40} />
                     </div>
                 ) : enquiries.length === 0 ? (
-                    <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] p-8 sm:p-20 text-center shadow-premium">
+                    <div className="bg-white rounded-3xl sm:rounded-[2.5rem] p-8 sm:p-20 text-center shadow-premium border border-slate-100">
                         <MessageSquare
                             size={64}
                             className="text-slate-200 mx-auto mb-6"
@@ -83,11 +83,11 @@ const EnquiryManagement = () => {
                             <motion.div
                                 key={enquiry._id}
                                 layout
-                                className="bg-white rounded-[2rem] sm:rounded-3xl shadow-premium border border-slate-100 overflow-hidden"
+                                className="bg-white rounded-3xl sm:rounded-[2rem] shadow-premium border border-slate-100 overflow-hidden"
                             >
                                 <div className="p-4 sm:p-6 lg:p-8">
                                     {/* Header */}
-                                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-8">
+                                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
                                         {/* User Info */}
                                         <div className="flex items-start gap-4 sm:gap-5 min-w-0">
                                             <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-primary flex-shrink-0">
@@ -105,100 +105,103 @@ const EnquiryManagement = () => {
 
                                                 <div className="flex flex-wrap items-center gap-2 mt-3">
                                                     <span
-                                                        className={`px-3 sm:px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider ${getStatusBadge(
+                                                        className={`px-3 sm:px-4 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase ${getStatusBadge(
                                                             enquiry.status
-                                                        )}`}
+                                                        )} shadow-sm`}
                                                     >
                                                         {enquiry.status}
                                                     </span>
 
-                                                    <span className="text-[10px] sm:text-xs text-slate-400 font-medium flex items-center gap-1.5 whitespace-nowrap">
-                                                        <Calendar size={12} className="opacity-70" />
+                                                    <span className="text-[10px] sm:text-xs text-slate-400 flex items-center gap-1.5 bg-slate-50 px-2.5 py-1 rounded-full border border-slate-100">
+                                                        <Calendar size={12} className="text-slate-400" />
                                                         {new Date(
                                                             enquiry.date
-                                                        ).toLocaleDateString()} • {new Date(
-                                                            enquiry.date
-                                                        ).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                        ).toLocaleDateString(undefined, { 
+                                                            month: 'short', 
+                                                            day: 'numeric', 
+                                                            year: 'numeric',
+                                                            hour: '2-digit',
+                                                            minute: '2-digit'
+                                                        })}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="w-full lg:w-auto">
-                                            <div className="flex flex-wrap items-center gap-3">
-                                                <button
-                                                    onClick={() =>
-                                                        updateStatus(
-                                                            enquiry._id,
-                                                            'confirmed'
-                                                        )
-                                                    }
-                                                    className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-blue-50 text-blue-700 rounded-2xl font-bold text-sm hover:bg-blue-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border border-blue-100/50 shadow-sm"
-                                                >
-                                                    <CheckCircle2 size={16} />
-                                                    Confirm
-                                                </button>
+                                        {/* Buttons Container */}
+                                        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto">
+                                            <button
+                                                onClick={() =>
+                                                    updateStatus(
+                                                        enquiry._id,
+                                                        'confirmed'
+                                                    )
+                                                }
+                                                className="flex-1 sm:flex-none justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2 group"
+                                            >
+                                                <CheckCircle2 size={16} className="group-hover:scale-110 transition-transform" />
+                                                <span>Confirm</span>
+                                            </button>
 
-                                                <button
-                                                    onClick={() =>
-                                                        updateStatus(
-                                                            enquiry._id,
-                                                            'rejected'
-                                                        )
-                                                    }
-                                                    className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-red-50 text-red-700 rounded-2xl font-bold text-sm hover:bg-red-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border border-red-100/50 shadow-sm"
-                                                >
-                                                    <XCircle size={16} />
-                                                    Reject
-                                                </button>
+                                            <button
+                                                onClick={() =>
+                                                    updateStatus(
+                                                        enquiry._id,
+                                                        'rejected'
+                                                    )
+                                                }
+                                                className="flex-1 sm:flex-none justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-red-50 text-red-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-red-600 hover:text-white transition-all flex items-center gap-2 group"
+                                            >
+                                                <XCircle size={16} className="group-hover:scale-110 transition-transform" />
+                                                <span>Reject</span>
+                                            </button>
 
-                                                <button
-                                                    onClick={() =>
-                                                        updateStatus(
-                                                            enquiry._id,
-                                                            'completed'
-                                                        )
-                                                    }
-                                                    className="flex-1 sm:flex-none px-4 sm:px-6 py-3 bg-green-50 text-green-700 rounded-2xl font-bold text-sm hover:bg-green-600 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 border border-green-100/50 shadow-sm"
-                                                >
-                                                    <CheckCircle2 size={16} />
-                                                    Complete
-                                                </button>
-                                            </div>
+                                            <button
+                                                onClick={() =>
+                                                    updateStatus(
+                                                        enquiry._id,
+                                                        'completed'
+                                                    )
+                                                }
+                                                className="w-full sm:w-auto justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-green-50 text-green-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-green-600 hover:text-white transition-all flex items-center gap-2 group sm:ml-auto lg:ml-0"
+                                            >
+                                                <CheckCircle2 size={16} className="group-hover:scale-110 transition-transform" />
+                                                <span>Complete</span>
+                                            </button>
                                         </div>
                                     </div>
 
                                     {/* Products */}
                                     <div className="bg-slate-50 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-6 mb-6 overflow-hidden">
-                                        <h4 className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
+                                        <h4 className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-5 flex items-center gap-2">
+                                            <span className="w-8 h-[1px] bg-slate-200"></span>
                                             Requested Products
                                         </h4>
 
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
                                             {enquiry.products.map((item, idx) => (
                                                 <div
                                                     key={idx}
-                                                    className="bg-white p-4 rounded-2xl flex items-start sm:items-center justify-between gap-3 shadow-sm border border-slate-100 group hover:border-primary/20 transition-colors"
+                                                    className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4 shadow-sm border border-slate-100 group hover:border-primary/20 transition-colors"
                                                 >
                                                     <div className="flex items-center gap-3 min-w-0">
-                                                        <div className="w-10 h-10 bg-primary/5 text-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                                                            <Clock size={20} />
+                                                        <div className="w-10 h-10 bg-slate-50 text-slate-400 group-hover:bg-primary/10 group-hover:text-primary rounded-xl flex items-center justify-center flex-shrink-0 transition-colors">
+                                                            <Clock size={18} />
                                                         </div>
 
                                                         <div className="min-w-0">
-                                                            <p className="font-bold text-slate-800 text-sm truncate">
+                                                            <p className="font-bold text-slate-800 text-sm truncate group-hover:text-primary transition-colors">
                                                                 {item.productId?.name ||
-                                                                    'Unknown'}
+                                                                    'Unknown Product'}
                                                             </p>
 
-                                                            <p className="text-xs text-slate-500">
-                                                                $
-                                                                {item.productId?.price}
+                                                            <p className="text-xs font-medium text-slate-400">
+                                                                Unit Price: <span className="text-slate-600">${item.productId?.price || '0'}</span>
                                                             </p>
                                                         </div>
                                                     </div>
 
-                                                    <div className="bg-slate-100 px-3 py-1 rounded-lg text-xs font-black flex-shrink-0">
+                                                    <div className="bg-slate-50 group-hover:bg-primary text-slate-600 group-hover:text-white px-3 py-1.5 rounded-lg text-xs font-black flex-shrink-0 transition-all border border-slate-100 group-hover:border-primary">
                                                         × {item.quantity}
                                                     </div>
                                                 </div>
