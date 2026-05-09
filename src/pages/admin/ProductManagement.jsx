@@ -141,28 +141,27 @@ const ProductManagement = () => {
 
     return (
         <Layout title="Product Management">
-            <div className="flex justify-between items-center mb-8">
-                <p className="text-slate-500">Manage your furniture catalog and inventory</p>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <p className="text-slate-500 text-sm sm:text-base">Manage your furniture catalog and inventory</p>
                 <button 
                     onClick={() => handleOpenModal()}
-                    className="bg-primary text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+                    className="w-full sm:w-auto bg-primary text-white px-6 py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
                 >
                     <Plus size={20} />
-                    Add New Product
+                    <span>Add New Product</span>
                 </button>
             </div>
 
-            <div className="bg-white rounded-[2.5rem] shadow-premium overflow-hidden border border-slate-100">
-                {/* Desktop Table View */}
-                <div className="hidden lg:block overflow-x-auto">
-                    <table className="w-full text-left">
+            <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] shadow-premium border border-slate-100 overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left min-w-[800px]">
                         <thead>
-                            <tr className="bg-slate-50 text-slate-500 text-xs font-bold uppercase tracking-wider">
-                                <th className="px-8 py-6">Product</th>
-                                <th className="px-8 py-6">Category</th>
-                                <th className="px-8 py-6">Price</th>
-                                <th className="px-8 py-6">Stock</th>
-                                <th className="px-8 py-6 text-right">Actions</th>
+                            <tr className="bg-slate-50 text-slate-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                                <th className="px-6 sm:px-8 py-4 sm:py-6">Product</th>
+                                <th className="px-6 sm:px-8 py-4 sm:py-6">Category</th>
+                                <th className="px-6 sm:px-8 py-4 sm:py-6">Price</th>
+                                <th className="px-6 sm:px-8 py-4 sm:py-6">Stock</th>
+                                <th className="px-6 sm:px-8 py-4 sm:py-6 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -170,34 +169,34 @@ const ProductManagement = () => {
                                 <tr><td colSpan="5" className="py-20 text-center"><Loader2 className="animate-spin inline text-primary" /></td></tr>
                             ) : products.map((product) => (
                                 <tr key={product._id} className="hover:bg-slate-50/50 transition-colors">
-                                    <td className="px-8 py-6">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 overflow-hidden">
+                                    <td className="px-6 sm:px-8 py-4 sm:py-6">
+                                        <div className="flex items-center gap-3 sm:gap-4">
+                                            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 overflow-hidden">
                                                 <SafeImage src={(product.images && product.images.length > 0) ? product.images[0].url : product.image} alt={product.name} className="w-full h-full" />
                                             </div>
-                                            <span className="font-bold text-slate-800">{product.name}</span>
+                                            <span className="font-bold text-slate-800 text-sm sm:text-base">{product.name}</span>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6">
-                                        <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px] font-black uppercase tracking-widest">{product.category}</span>
+                                    <td className="px-6 sm:px-8 py-4 sm:py-6">
+                                        <span className="px-2.5 py-1 bg-slate-100 text-slate-600 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest">{product.category}</span>
                                     </td>
-                                    <td className="px-8 py-6 font-black text-slate-900 text-lg">${product.price}</td>
-                                    <td className="px-8 py-6">
-                                        <span className={`font-bold ${product.stock < 10 ? 'text-danger' : 'text-slate-600'}`}>{product.stock} units</span>
+                                    <td className="px-6 sm:px-8 py-4 sm:py-6 font-black text-slate-900 text-base sm:text-lg">${product.price}</td>
+                                    <td className="px-6 sm:px-8 py-4 sm:py-6">
+                                        <span className={`font-bold text-sm ${product.stock < 10 ? 'text-danger' : 'text-slate-600'}`}>{product.stock} units</span>
                                     </td>
-                                    <td className="px-8 py-6 text-right">
-                                        <div className="flex items-center justify-end gap-2">
+                                    <td className="px-6 sm:px-8 py-4 sm:py-6 text-right">
+                                        <div className="flex items-center justify-end gap-1 sm:gap-2">
                                             <button 
                                                 onClick={() => handleOpenModal(product)}
-                                                className="p-3 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all"
+                                                className="p-2 sm:p-3 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-2xl transition-all"
                                             >
-                                                <Edit2 size={20} />
+                                                <Edit2 size={18} />
                                             </button>
                                             <button 
                                                 onClick={() => handleDelete(product._id)}
-                                                className="p-3 text-slate-400 hover:text-danger hover:bg-danger/5 rounded-2xl transition-all"
+                                                className="p-2 sm:p-3 text-slate-400 hover:text-danger hover:bg-danger/5 rounded-2xl transition-all"
                                             >
-                                                <Trash2 size={20} />
+                                                <Trash2 size={18} />
                                             </button>
                                         </div>
                                     </td>
@@ -205,44 +204,6 @@ const ProductManagement = () => {
                             ))}
                         </tbody>
                     </table>
-                </div>
-
-                {/* Mobile Card View */}
-                <div className="lg:hidden p-4 space-y-4">
-                    {loading ? (
-                        <div className="py-20 text-center"><Loader2 className="animate-spin inline text-primary" /></div>
-                    ) : products.map((product) => (
-                        <div key={product._id} className="bg-slate-50/50 border border-slate-100 rounded-[2.5rem] p-5 space-y-4 relative group">
-                            <div className="flex gap-4">
-                                <div className="w-24 h-24 bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm flex-shrink-0">
-                                    <SafeImage src={(product.images && product.images.length > 0) ? product.images[0].url : product.image} alt={product.name} className="w-full h-full" />
-                                </div>
-                                <div className="flex-1 min-w-0 py-1">
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-[10px] font-black text-primary uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded-md">{product.category}</span>
-                                        <span className={`text-[10px] font-bold ${product.stock < 10 ? 'text-danger' : 'text-slate-400'}`}>Stock: {product.stock}</span>
-                                    </div>
-                                    <h3 className="font-black text-slate-900 truncate mb-1">{product.name}</h3>
-                                    <p className="text-xl font-black text-slate-900">${product.price}</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center gap-2 pt-2">
-                                <button 
-                                    onClick={() => handleOpenModal(product)}
-                                    className="flex-1 bg-white border border-slate-200 text-slate-700 py-3.5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm"
-                                >
-                                    <Edit2 size={16} /> Edit
-                                </button>
-                                <button 
-                                    onClick={() => handleDelete(product._id)}
-                                    className="w-14 h-14 bg-red-50 text-red-600 border border-red-100 rounded-2xl flex items-center justify-center active:scale-95 transition-all"
-                                >
-                                    <Trash2 size={20} />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
                 </div>
             </div>
 
@@ -261,7 +222,7 @@ const ProductManagement = () => {
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="relative bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl p-10 max-h-[90vh] overflow-y-auto"
+                            className="relative bg-white w-full max-w-xl rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-10 max-h-[90vh] overflow-y-auto"
                         >
                             <div className="flex items-center justify-between mb-8">
                                 <h3 className="text-2xl font-bold text-slate-800">{editingProduct ? 'Edit Product' : 'Add Product'}</h3>
@@ -286,7 +247,7 @@ const ProductManagement = () => {
                                     {errors.name && <p className="text-danger text-[10px] font-bold mt-1.5 ml-1 uppercase tracking-wider">{errors.name}</p>}
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
                                         <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">Price ($)</label>
                                         <input

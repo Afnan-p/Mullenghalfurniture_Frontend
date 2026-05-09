@@ -220,9 +220,9 @@ const UserDetails = () => {
                 <div className="flex-1 space-y-8">
                     {/* Stats Header */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                        <div className="bg-white rounded-[2rem] p-6 shadow-premium border border-slate-100 relative overflow-hidden group">
-                            <p className="text-slate-400 font-bold text-xs uppercase mb-1">Prev. Balance</p>
-                            <p className="text-2xl font-black text-slate-800">${summary.previousBalance.toLocaleString()}</p>
+                        <div className="bg-white rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 shadow-premium border border-slate-100 relative overflow-hidden group">
+                            <p className="text-slate-400 font-bold text-[10px] sm:text-xs uppercase mb-1">Prev. Balance</p>
+                            <p className="text-xl sm:text-2xl font-black text-slate-800">${summary.previousBalance.toLocaleString()}</p>
                             <button 
                                 onClick={() => setIsBalanceModalOpen(true)}
                                 className="absolute top-4 right-4 p-2 bg-slate-50 text-slate-400 hover:text-primary rounded-lg opacity-0 group-hover:opacity-100 transition-all"
@@ -230,17 +230,17 @@ const UserDetails = () => {
                                 <Plus size={14} />
                             </button>
                         </div>
-                        <div className="bg-white rounded-[2rem] p-6 shadow-premium border border-slate-100">
-                            <p className="text-red-500 font-bold text-xs uppercase mb-1">Total Debit (+)</p>
-                            <p className="text-2xl font-black text-slate-800">${summary.totalDebit.toLocaleString()}</p>
+                        <div className="bg-white rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 shadow-premium border border-slate-100">
+                            <p className="text-red-500 font-bold text-[10px] sm:text-xs uppercase mb-1">Total Debit (+)</p>
+                            <p className="text-xl sm:text-2xl font-black text-slate-800">${summary.totalDebit.toLocaleString()}</p>
                         </div>
-                        <div className="bg-white rounded-[2rem] p-6 shadow-premium border border-slate-100">
-                            <p className="text-green-500 font-bold text-xs uppercase mb-1">Total Credit (-)</p>
-                            <p className="text-2xl font-black text-slate-800">${summary.totalCredit.toLocaleString()}</p>
+                        <div className="bg-white rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 shadow-premium border border-slate-100">
+                            <p className="text-green-500 font-bold text-[10px] sm:text-xs uppercase mb-1">Total Credit (-)</p>
+                            <p className="text-xl sm:text-2xl font-black text-slate-800">${summary.totalCredit.toLocaleString()}</p>
                         </div>
-                        <div className="bg-primary rounded-[2rem] p-6 shadow-premium text-white">
-                            <p className="text-primary-100 font-bold text-xs uppercase mb-1">Current Balance</p>
-                            <p className="text-2xl font-black">${summary.currentBalance.toLocaleString()}</p>
+                        <div className="bg-primary rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-6 shadow-premium text-white">
+                            <p className="text-primary-100 font-bold text-[10px] sm:text-xs uppercase mb-1">Current Balance</p>
+                            <p className="text-xl sm:text-2xl font-black">${summary.currentBalance.toLocaleString()}</p>
                         </div>
                     </div>
 
@@ -372,7 +372,7 @@ const UserDetails = () => {
                  {isTxModalOpen && (
                      <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
                          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsTxModalOpen(false)} className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
-                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="relative bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl p-10 max-h-[90vh] overflow-y-auto">
+                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="relative bg-white w-full max-w-md rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-10 max-h-[90vh] overflow-y-auto">
                              <h3 className="text-2xl font-bold text-slate-800 mb-8">{editingTxId ? 'Edit' : 'Add'} Ledger Entry</h3>
                              <form onSubmit={handleAddOrUpdateTransaction} className="space-y-5">
                                  <div className="flex bg-slate-100 p-1 rounded-xl">
@@ -480,7 +480,7 @@ const UserDetails = () => {
                 {isBalanceModalOpen && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsBalanceModalOpen(false)} className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
-                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="relative bg-white w-full max-w-sm rounded-[2.5rem] shadow-2xl p-10">
+                        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="relative bg-white w-full max-w-sm rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl p-6 sm:p-10">
                             <h3 className="text-xl font-bold text-slate-800 mb-6">Update Prev. Balance</h3>
                             <form onSubmit={handleUpdateBalance} className="space-y-5">
                                 <div>

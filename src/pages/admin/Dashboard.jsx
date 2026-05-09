@@ -54,7 +54,7 @@ const AdminDashboard = () => {
 
     return (
         <Layout title="Admin Overview">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
                 {statCards.map((card, idx) => (
                     <div key={idx} className="bg-white rounded-3xl p-6 shadow-premium border border-slate-100 flex flex-col justify-between">
                         <div className={`w-12 h-12 rounded-2xl ${card.bg} ${card.color} flex items-center justify-center mb-4`}>
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="bg-white rounded-[2.5rem] p-8 shadow-premium border border-slate-100">
+                <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 shadow-premium border border-slate-100">
                     <div className="flex items-center justify-between mb-8">
                         <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                             <Activity className="text-primary" size={24} />
@@ -126,12 +126,12 @@ const AdminDashboard = () => {
                         </ResponsiveContainer>
                     </div>
 
-                    <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
                         <div className="flex-1 p-6 bg-slate-900 rounded-3xl text-white">
                             <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Total Outstanding</p>
                             <p className="text-2xl font-black">${(stats.totalPreviousBalance + stats.totalDebit - stats.totalCredit).toLocaleString()}</p>
                         </div>
-                        <div className="flex items-center gap-4 px-6 border border-slate-100 rounded-3xl">
+                        <div className="flex flex-wrap items-center gap-4 px-6 py-4 sm:py-0 border border-slate-100 rounded-3xl">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full bg-green-500" />
                                 <span className="text-xs font-bold text-slate-500 uppercase">Received</span>
@@ -144,13 +144,13 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] p-8 shadow-premium border border-slate-100">
+                <div className="bg-white rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 shadow-premium border border-slate-100">
                     <h3 className="text-xl font-bold text-slate-800 mb-6">Quick Links</h3>
                     <div className="grid grid-cols-2 gap-4">
                         {['Products', 'Enquiries', 'Users', 'Accounting'].map((link) => (
-                            <button key={link} className="p-6 bg-slate-50 rounded-2xl text-left hover:bg-primary hover:text-white transition-all group">
-                                <p className="font-bold text-slate-800 group-hover:text-white">{link}</p>
-                                <p className="text-xs text-slate-500 group-hover:text-primary-100">Manage all {link.toLowerCase()}</p>
+                            <button key={link} className="p-4 sm:p-6 bg-slate-50 rounded-2xl text-left hover:bg-primary hover:text-white transition-all group">
+                                <p className="font-bold text-slate-800 group-hover:text-white text-sm sm:text-base">{link}</p>
+                                <p className="text-[10px] sm:text-xs text-slate-500 group-hover:text-primary-100">Manage all {link.toLowerCase()}</p>
                             </button>
                         ))}
                     </div>

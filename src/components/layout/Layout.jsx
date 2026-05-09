@@ -31,7 +31,7 @@ const Layout = ({ children, title }) => {
                     <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
                     
                     {/* Main Admin Content */}
-                    <main className="flex-1 lg:ml-64 p-4 md:p-8 transition-all duration-300">
+                    <main className="flex-1 lg:ml-72 p-4 md:p-8 transition-all duration-300 min-h-screen overflow-x-hidden">
                         {/* Mobile Header for Admin */}
                         <div className="lg:hidden flex items-center justify-between mb-8 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
                             <div className="flex items-center gap-3">
