@@ -6,6 +6,8 @@ import { AuthContext, AuthProvider } from './context/AuthContext';
 // Pages
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
 import Home from './pages/user/Home';
 import About from './pages/user/About';
 import UserDashboard from './pages/user/Dashboard';
@@ -43,6 +45,8 @@ const AppRoutes = () => {
         <Routes>
             <Route path="/login" element={!user ? <Login /> : <Navigate to={user.role === 'admin' ? '/admin/dashboard' : '/home'} />} />
             <Route path="/register" element={!user ? <Register /> : <Navigate to="/home" />} />
+            <Route path="/forgot-password" element={!user ? <ForgotPassword /> : <Navigate to="/home" />} />
+            <Route path="/reset-password/:token" element={!user ? <ResetPassword /> : <Navigate to="/home" />} />
 
             {/* User & Global Routes */}
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />

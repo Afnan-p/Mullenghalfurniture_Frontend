@@ -54,6 +54,16 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Prepare trimmed data
+        const trimmedData = {
+            name: formData.name.trim(),
+            email: formData.email.trim().toLowerCase(),
+            password: formData.password.trim(),
+            shopName: formData.shopName.trim(),
+            phone: formData.phone.trim()
+        };
+
         if (!validate()) {
             toast.error('Please fill all required fields correctly');
             return;
@@ -61,13 +71,7 @@ const Register = () => {
         
         setLoading(true);
         try {
-            const { data } = await api.post('/auth/register', {
-                name: formData.name,
-                email: formData.email,
-                password: formData.password,
-                shopName: formData.shopName,
-                phone: formData.phone
-            });
+            const { data } = await api.post('/auth/register', trimmedData);
             login(data);
             toast.success('Business account created successfully!');
             navigate('/');

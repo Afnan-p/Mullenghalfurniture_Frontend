@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import api from '../../api';
 import toast from 'react-hot-toast';
@@ -14,6 +14,14 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const isExpired = new URLSearchParams(location.search).get('expired') === 'true';
+
+    useEffect(() => {
+        if (isExpired) {
+            toast.error('Session expired. Please login again.', { id: 'session-expired' });
+        }
+    }, [isExpired]);
 
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
@@ -29,6 +37,9 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const trimmedEmail = email.trim().toLowerCase();
+        const trimmedPassword = password.trim();
+
         if (!validate()) {
             toast.error('Please fill all required fields correctly');
             return;
@@ -36,14 +47,18 @@ const Login = () => {
         
         setLoading(true);
         try {
-            const { data } = await api.post('/auth/login', { email, password });
+            const { data } = await api.post('/auth/login', { 
+                email: trimmedEmail, 
+                password: trimmedPassword 
+            });
             login(data);
             toast.success('Welcome back to Mullenghal');
             navigate(data.role === 'admin' ? '/admin' : '/home');
         } catch (error) {
-            toast.error(error.response?.data?.message || 'Login failed');
+            const message = error.response?.data?.message || 'Login failed';
+            toast.error(message);
             if (error.response?.status === 401) {
-                setErrors({ auth: 'Invalid email or password' });
+                setErrors({ auth: message });
             }
         } finally {
             setLoading(false);
@@ -138,7 +153,7 @@ const Login = () => {
                         <div>
                             <div className="flex justify-between items-end mb-2.5 ml-1">
                                 <label className="block text-xs font-black text-slate-400 uppercase tracking-widest">Password</label>
-                                <button type="button" className="text-[10px] font-black uppercase text-primary tracking-widest hover:underline decoration-2 underline-offset-4">Forgot Password?</button>
+                                <Link to="/forgot-password" size="sm" className="text-[10px] font-black uppercase text-primary tracking-widest hover:underline decoration-2 underline-offset-4">Forgot Password?</Link>
                             </div>
                             <div className="relative group">
                                 <Lock className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors duration-300 ${errors.password ? 'text-danger' : 'text-slate-300 group-focus-within:text-primary'}`} size={18} />
