@@ -9,7 +9,8 @@ import {
     MessageSquare,
     User,
     Calendar,
-    Loader2
+    Loader2,
+    Trash2
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -39,6 +40,18 @@ const EnquiryManagement = () => {
             fetchEnquiries();
         } catch (error) {
             toast.error('Status update failed');
+        }
+    };
+
+    const deleteEnquiry = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this enquiry? This action cannot be undone.')) return;
+        
+        try {
+            await api.delete(`/enquiries/${id}`);
+            toast.success('Enquiry deleted successfully');
+            setEnquiries(enquiries.filter(e => e._id !== id));
+        } catch (error) {
+            toast.error(error.response?.data?.message || 'Failed to delete enquiry');
         }
     };
 
@@ -163,10 +176,18 @@ const EnquiryManagement = () => {
                                                         'completed'
                                                     )
                                                 }
-                                                className="w-full sm:w-auto justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-green-50 text-green-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-green-600 hover:text-white transition-all flex items-center gap-2 group sm:ml-auto lg:ml-0"
+                                                className="flex-1 sm:flex-none justify-center px-4 sm:px-6 py-3 sm:py-2.5 bg-green-50 text-green-700 rounded-xl font-bold text-xs sm:text-sm hover:bg-green-600 hover:text-white transition-all flex items-center gap-2 group"
                                             >
                                                 <CheckCircle2 size={16} className="group-hover:scale-110 transition-transform" />
                                                 <span>Complete</span>
+                                            </button>
+
+                                            <button
+                                                onClick={() => deleteEnquiry(enquiry._id)}
+                                                className="w-full sm:w-auto justify-center p-3 bg-red-50 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all group sm:ml-auto lg:ml-0"
+                                                title="Delete Enquiry"
+                                            >
+                                                <Trash2 size={18} className="group-hover:rotate-12 transition-transform" />
                                             </button>
                                         </div>
                                     </div>
