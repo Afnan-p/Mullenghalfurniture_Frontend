@@ -381,14 +381,14 @@ const UserDetails = () => {
                                          onClick={() => setTxForm({...txForm, type: 'debit'})}
                                          className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${txForm.type === 'debit' ? 'bg-white text-red-600 shadow-sm' : 'text-slate-500'}`}
                                      >
-                                         Debit (Charge)
+                                         Debit (Load)
                                      </button>
                                      <button 
                                          type="button"
                                          onClick={() => setTxForm({...txForm, type: 'credit'})}
                                          className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${txForm.type === 'credit' ? 'bg-white text-green-600 shadow-sm' : 'text-slate-500'}`}
                                      >
-                                         Credit (Payment)
+                                         Credit (Cash)
                                      </button>
                                  </div>
                                  <div>
