@@ -98,9 +98,9 @@ const EnquiryManagement = () => {
                                 layout
                                 className="bg-white rounded-3xl sm:rounded-[2rem] shadow-premium border border-slate-100 overflow-hidden"
                             >
-                                <div className="p-4 sm:p-6 lg:p-8">
+                                <div className="p-4 sm:p-6 lg:p-7">
                                     {/* Header */}
-                                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
+                                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-6">
                                         {/* User Info */}
                                         <div className="flex items-start gap-4 sm:gap-5 min-w-0">
                                             <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-primary flex-shrink-0">
@@ -193,8 +193,8 @@ const EnquiryManagement = () => {
                                     </div>
 
                                     {/* Products */}
-                                    <div className="bg-slate-50 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-6 mb-6 overflow-hidden">
-                                        <h4 className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-5 flex items-center gap-2">
+                                    <div className="bg-slate-50 rounded-[1.5rem] sm:rounded-[2rem] p-4 sm:p-5 mb-5 overflow-hidden">
+                                        <h4 className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
                                             <span className="w-8 h-[1px] bg-slate-200"></span>
                                             Requested Products
                                         </h4>

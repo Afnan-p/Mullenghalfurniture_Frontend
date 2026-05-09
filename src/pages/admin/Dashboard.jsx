@@ -150,9 +150,9 @@ const AdminDashboard = () => {
                 <motion.div 
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="lg:col-span-2 bg-white rounded-[2.5rem] p-6 sm:p-10 shadow-premium border border-slate-100"
+                    className="lg:col-span-2 bg-white rounded-[2.5rem] p-6 sm:p-8 shadow-premium border border-slate-100"
                 >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
                         <div>
                             <h3 className="text-2xl font-black text-slate-800 flex items-center gap-3">
                                 <Activity className="text-primary" size={28} />
@@ -176,7 +176,7 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                     
-                    <div className="h-[350px] w-full mb-10">
+                    <div className="h-[280px] w-full mb-8">
                         {stats.chartData.length > 0 ? (
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={stats.chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -259,14 +259,14 @@ const AdminDashboard = () => {
                 <motion.div 
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="bg-white rounded-[2.5rem] p-6 sm:p-10 shadow-premium border border-slate-100"
+                    className="bg-white rounded-[2.5rem] p-6 sm:p-8 shadow-premium border border-slate-100"
                 >
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center justify-between mb-6">
                         <h3 className="text-xl font-bold text-slate-800">System Activity</h3>
                         <Link to="/admin/users" className="text-xs font-black text-primary uppercase tracking-widest hover:underline decoration-2 underline-offset-4">View All</Link>
                     </div>
 
-                    <div className="space-y-8 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-50">
+                    <div className="space-y-5 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-50">
                         {stats.activities.length > 0 ? stats.activities.map((act, idx) => (
                             <div key={idx} className="relative pl-10">
                                 <div className={`absolute left-0 top-1 w-6 h-6 rounded-full border-4 border-white shadow-sm flex items-center justify-center z-10 ${
@@ -302,9 +302,9 @@ const AdminDashboard = () => {
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="lg:col-span-2 bg-white rounded-[2.5rem] p-6 sm:p-10 shadow-premium border border-slate-100"
+                    className="lg:col-span-2 bg-white rounded-[2.5rem] p-6 sm:p-8 shadow-premium border border-slate-100"
                 >
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center justify-between mb-6">
                         <div>
                             <h3 className="text-xl font-bold text-slate-800">Latest Enquiries</h3>
                             <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">{stats.pendingEnquiries} Pending attention</p>
@@ -356,10 +356,10 @@ const AdminDashboard = () => {
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-[2.5rem] p-6 sm:p-10 shadow-premium border border-slate-100 flex flex-col"
+                    className="bg-white rounded-[2.5rem] p-6 sm:p-8 shadow-premium border border-slate-100 flex flex-col"
                 >
-                    <h3 className="text-xl font-bold text-slate-800 mb-8">Quick Management</h3>
-                    <div className="grid grid-cols-2 gap-4 mb-8">
+                    <h3 className="text-xl font-bold text-slate-800 mb-6">Quick Management</h3>
+                    <div className="grid grid-cols-2 gap-4 mb-6">
                         {[
                             { name: 'Products', sub: 'Catalog', icon: Package, link: '/admin/products' },
                             { name: 'Enquiries', sub: 'Active', icon: MessageSquare, link: '/admin/enquiries' },

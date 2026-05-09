@@ -31,9 +31,9 @@ const Layout = ({ children, title }) => {
                     <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
                     
                     {/* Main Admin Content */}
-                    <main className="flex-1 lg:ml-72 p-4 md:p-8 transition-all duration-300 min-h-screen overflow-x-hidden">
+                    <main className="flex-1 lg:ml-72 p-4 md:p-6 transition-all duration-300 min-h-screen overflow-x-hidden">
                         {/* Mobile Header for Admin */}
-                        <div className="lg:hidden flex items-center justify-between mb-8 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                        <div className="lg:hidden flex items-center justify-between mb-6 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
                             <div className="flex items-center gap-3">
                                 <Menu 
                                     className="text-slate-600 cursor-pointer" 
@@ -45,8 +45,8 @@ const Layout = ({ children, title }) => {
 
                         <div className="max-w-7xl mx-auto">
                             {title && (
-                                <div className="mb-6 md:mb-10">
-                                    <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">{title}</h2>
+                                <div className="mb-6 md:mb-8">
+                                    <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight leading-tight">{title}</h2>
                                     <p className="text-slate-400 font-bold uppercase tracking-widest text-[8px] md:text-[10px] mt-1 md:mt-2">Administrative Control Panel</p>
                                 </div>
                             )}
