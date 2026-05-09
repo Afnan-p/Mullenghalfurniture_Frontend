@@ -15,12 +15,21 @@ export const AuthProvider = ({ children }) => {
         const userInfo = localStorage.getItem('userInfo');
         if (userInfo) {
             try {
-                const { data } = await api.get('/auth/me');
-                const userData = { ...JSON.parse(userInfo), ...data };
-                setUser(userData);
-                localStorage.setItem('userInfo', JSON.stringify(userData));
+                const parsedUser = JSON.parse(userInfo);
+                if (parsedUser?.token) {
+                    const { data } = await api.get('/auth/me');
+                    const userData = { ...parsedUser, ...data };
+                    setUser(userData);
+                    localStorage.setItem('userInfo', JSON.stringify(userData));
+                } else {
+                    throw new Error('No token found');
+                }
             } catch (error) {
-                console.error('Session verification failed:', error);
+                // Silent failure for auth checks to avoid console spam
+                // Only log if it's not a standard 401/404
+                if (error.response?.status !== 401 && error.response?.status !== 404) {
+                    console.error('Session verification failed:', error);
+                }
                 localStorage.removeItem('userInfo');
                 setUser(null);
             }
