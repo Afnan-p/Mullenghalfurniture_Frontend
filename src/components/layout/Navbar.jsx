@@ -45,7 +45,7 @@ const Navbar = () => {
         { name: 'Home', path: '/home', icon: HomeIcon },
         { name: 'Products', path: '/products', icon: Armchair },
         { name: 'About', path: '/about', icon: HelpCircle },
-        { name: 'My Enquiries', path: '/enquiries', icon: History },
+        ...(user ? [{ name: 'My Enquiries', path: '/enquiries', icon: History }] : []),
     ];
 
     const handleLogout = () => {
@@ -89,78 +89,95 @@ const Navbar = () => {
 
                     {/* Actions */}
                     <div className="flex items-center gap-4 relative z-[70]">
-                        <div className="relative hidden lg:block">
-                            <button 
-                                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                                className="flex items-center gap-3 bg-white/50 backdrop-blur p-1.5 pr-4 rounded-2xl hover:bg-white transition-all border border-slate-100 shadow-sm group"
-                            >
-                                <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center text-primary overflow-hidden group-hover:bg-primary group-hover:text-white transition-colors">
-                                    {user?.avatar ? (
-                                        <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                    ) : (
-                                        <User size={20} />
-                                    )}
-                                </div>
-                                <div className="hidden md:block text-left">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Partner</p>
-                                    <p className="text-sm font-black text-slate-800 leading-none">{user?.name?.split(' ')[0]}</p>
-                                </div>
-                                <ChevronDown size={14} className={`text-slate-400 transition-transform duration-500 ${isProfileOpen ? 'rotate-180' : ''}`} />
-                            </button>
+                        {user ? (
+                            <div className="relative hidden lg:block">
+                                <button 
+                                    onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                    className="flex items-center gap-3 bg-white/50 backdrop-blur p-1.5 pr-4 rounded-2xl hover:bg-white transition-all border border-slate-100 shadow-sm group"
+                                >
+                                    <div className="w-9 h-9 bg-primary/10 rounded-xl flex items-center justify-center text-primary overflow-hidden group-hover:bg-primary group-hover:text-white transition-colors">
+                                        {user?.avatar ? (
+                                            <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                        ) : (
+                                            <User size={20} />
+                                        )}
+                                    </div>
+                                    <div className="hidden md:block text-left">
+                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Partner</p>
+                                        <p className="text-sm font-black text-slate-800 leading-none">{user?.name?.split(' ')[0]}</p>
+                                    </div>
+                                    <ChevronDown size={14} className={`text-slate-400 transition-transform duration-500 ${isProfileOpen ? 'rotate-180' : ''}`} />
+                                </button>
 
-                            <AnimatePresence>
-                                {isProfileOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                                        className="absolute right-0 mt-4 w-72 bg-white rounded-[2rem] shadow-2xl border border-slate-100 p-2 z-[80] origin-top-right overflow-hidden"
-                                    >
-                                        <div className="px-5 py-6 bg-slate-50/80 backdrop-blur rounded-[1.5rem] mb-2 flex items-center gap-4 border border-white/50">
-                                            <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-primary shrink-0 overflow-hidden shadow-sm">
-                                                {user?.avatar ? (
-                                                    <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <User size={28} />
+                                <AnimatePresence>
+                                    {isProfileOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+                                            className="absolute right-0 mt-4 w-72 bg-white rounded-[2rem] shadow-2xl border border-slate-100 p-2 z-[80] origin-top-right overflow-hidden"
+                                        >
+                                            <div className="px-5 py-6 bg-slate-50/80 backdrop-blur rounded-[1.5rem] mb-2 flex items-center gap-4 border border-white/50">
+                                                <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-primary shrink-0 overflow-hidden shadow-sm">
+                                                    {user?.avatar ? (
+                                                        <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                                    ) : (
+                                                        <User size={28} />
+                                                    )}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <p className="text-base font-black text-slate-800 truncate leading-tight">{user?.name}</p>
+                                                    <div className="flex items-center gap-1 mt-1">
+                                                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                                                        <p className="text-[9px] text-slate-400 font-black uppercase tracking-[0.2em] truncate">{user?.shopName}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="px-3 py-3 space-y-2">
+                                                <div className="flex items-center gap-4 px-4 py-3 text-xs font-bold text-slate-600 bg-slate-50/50 rounded-2xl border border-slate-50">
+                                                    <Mail size={14} className="text-slate-400" />
+                                                    <span className="truncate">{user?.email}</span>
+                                                </div>
+                                                {user?.phone && (
+                                                    <div className="flex items-center gap-4 px-4 py-3 text-xs font-bold text-slate-600 bg-slate-50/50 rounded-2xl border border-slate-50">
+                                                        <Phone size={14} className="text-slate-400" />
+                                                        <span className="truncate">{user.phone}</span>
+                                                    </div>
                                                 )}
                                             </div>
-                                            <div className="min-w-0">
-                                                <p className="text-base font-black text-slate-800 truncate leading-tight">{user?.name}</p>
-                                                <div className="flex items-center gap-1 mt-1">
-                                                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                                    <p className="text-[9px] text-slate-400 font-black uppercase tracking-[0.2em] truncate">{user?.shopName}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="px-3 py-3 space-y-2">
-                                            <div className="flex items-center gap-4 px-4 py-3 text-xs font-bold text-slate-600 bg-slate-50/50 rounded-2xl border border-slate-50">
-                                                <Mail size={14} className="text-slate-400" />
-                                                <span className="truncate">{user?.email}</span>
-                                            </div>
-                                            {user?.phone && (
-                                                <div className="flex items-center gap-4 px-4 py-3 text-xs font-bold text-slate-600 bg-slate-50/50 rounded-2xl border border-slate-50">
-                                                    <Phone size={14} className="text-slate-400" />
-                                                    <span className="truncate">{user.phone}</span>
-                                                </div>
-                                            )}
-                                        </div>
 
-                                        <div className="mt-2 pt-2 border-t border-slate-50">
-                                            <button 
-                                                onClick={handleLogout}
-                                                className="w-full flex items-center gap-4 px-5 py-4 text-sm font-black text-red-500 hover:bg-red-50 rounded-2xl transition-all group"
-                                            >
-                                                <div className="w-9 h-9 bg-red-100/50 rounded-xl flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors">
-                                                    <LogOut size={18} />
-                                                </div>
-                                                <span className="uppercase tracking-widest text-[11px]">SIGN OUT</span>
-                                            </button>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
+                                            <div className="mt-2 pt-2 border-t border-slate-50">
+                                                <button 
+                                                    onClick={handleLogout}
+                                                    className="w-full flex items-center gap-4 px-5 py-4 text-sm font-black text-red-500 hover:bg-red-50 rounded-2xl transition-all group"
+                                                >
+                                                    <div className="w-9 h-9 bg-red-100/50 rounded-xl flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors">
+                                                        <LogOut size={18} />
+                                                    </div>
+                                                    <span className="uppercase tracking-widest text-[11px]">SIGN OUT</span>
+                                                </button>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        ) : (
+                            <div className="hidden lg:flex items-center gap-3">
+                                <Link 
+                                    to="/login" 
+                                    className="px-6 py-3 text-xs font-black text-slate-500 uppercase tracking-widest hover:text-primary transition-colors"
+                                >
+                                    Sign In
+                                </Link>
+                                <Link 
+                                    to="/register" 
+                                    className="px-8 py-3 bg-slate-900 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-primary hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95"
+                                >
+                                    Join Mullenghal
+                                </Link>
+                            </div>
+                        )}
 
                         {/* Mobile Menu Toggle */}
                         <button 
@@ -217,29 +234,48 @@ const Navbar = () => {
                             <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-8 custom-scrollbar">
                                 {/* Profile Info */}
                                 <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm">
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-primary shadow-inner overflow-hidden">
-                                            {user?.avatar ? (
-                                                <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
-                                            ) : (
-                                                <User size={28} />
-                                            )}
-                                        </div>
-                                        <div className="min-w-0">
-                                            <p className="text-lg font-black text-slate-800 leading-tight truncate">{user?.name}</p>
-                                            <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1 truncate">{user?.shopName}</p>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-3">
-                                        <div className="flex items-center gap-3 text-xs font-bold text-slate-500 truncate">
-                                            <Mail size={14} className="text-slate-300 shrink-0" /> {user?.email}
-                                        </div>
-                                        {user?.phone && (
-                                            <div className="flex items-center gap-3 text-xs font-bold text-slate-500">
-                                                <Phone size={14} className="text-slate-300 shrink-0" /> {user.phone}
+                                    {user ? (
+                                        <>
+                                            <div className="flex items-center gap-4 mb-6">
+                                                <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-primary shadow-inner overflow-hidden">
+                                                    {user?.avatar ? (
+                                                        <img src={user.avatar} alt="Profile" className="w-full h-full object-cover" />
+                                                    ) : (
+                                                        <User size={28} />
+                                                    )}
+                                                </div>
+                                                <div className="min-w-0">
+                                                    <p className="text-lg font-black text-slate-800 leading-tight truncate">{user?.name}</p>
+                                                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1 truncate">{user?.shopName}</p>
+                                                </div>
                                             </div>
-                                        )}
-                                    </div>
+                                            <div className="space-y-3">
+                                                <div className="flex items-center gap-3 text-xs font-bold text-slate-500 truncate">
+                                                    <Mail size={14} className="text-slate-300 shrink-0" /> {user?.email}
+                                                </div>
+                                                {user?.phone && (
+                                                    <div className="flex items-center gap-3 text-xs font-bold text-slate-500">
+                                                        <Phone size={14} className="text-slate-300 shrink-0" /> {user.phone}
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            <div className="flex items-center gap-4 mb-2">
+                                                <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-300">
+                                                    <User size={28} />
+                                                </div>
+                                                <div>
+                                                    <p className="text-lg font-black text-slate-800 leading-tight">Guest Partner</p>
+                                                    <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mt-1">Sign in to manage</p>
+                                                </div>
+                                            </div>
+                                            <Link to="/login" className="block w-full py-4 bg-slate-900 text-white text-center rounded-2xl font-black uppercase tracking-widest text-[10px]">
+                                                Sign In
+                                            </Link>
+                                        </div>
+                                    )}
                                 </div>
 
                                 {/* Navigation Links */}
@@ -269,13 +305,23 @@ const Navbar = () => {
 
                             {/* Drawer Footer */}
                             <div className="p-6 bg-white border-t border-slate-100">
-                                <button 
-                                    onClick={handleLogout}
-                                    className="w-full flex items-center justify-center gap-3 py-4 text-red-500 font-black uppercase tracking-[0.2em] bg-red-50 rounded-2xl active:scale-[0.98] transition-all text-xs"
-                                >
-                                    <LogOut size={18} />
-                                    Secure Logout
-                                </button>
+                                {user ? (
+                                    <button 
+                                        onClick={handleLogout}
+                                        className="w-full flex items-center justify-center gap-3 py-4 text-red-500 font-black uppercase tracking-[0.2em] bg-red-50 rounded-2xl active:scale-[0.98] transition-all text-xs"
+                                    >
+                                        <LogOut size={18} />
+                                        Secure Logout
+                                    </button>
+                                ) : (
+                                    <Link 
+                                        to="/register"
+                                        className="w-full flex items-center justify-center gap-3 py-4 text-primary font-black uppercase tracking-[0.2em] bg-primary/5 rounded-2xl active:scale-[0.98] transition-all text-xs border border-primary/10"
+                                    >
+                                        <User size={18} />
+                                        Create Account
+                                    </Link>
+                                )}
                             </div>
                         </motion.div>
                     </div>

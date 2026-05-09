@@ -43,7 +43,15 @@ const ProductDetails = () => {
         if (type === 'dec' && quantity > 1) setQuantity(prev => prev - 1);
     };
 
+    const { user } = useContext(AuthContext);
+
     const addToEnquiry = async () => {
+        if (!user) {
+            toast('Please login to send an enquiry', { icon: '🔐' });
+            navigate('/login', { state: { from: { pathname: `/products/${id}` } } });
+            return;
+        }
+
         try {
             await api.post('/enquiries', {
                 products: [{ productId: product._id, quantity }],

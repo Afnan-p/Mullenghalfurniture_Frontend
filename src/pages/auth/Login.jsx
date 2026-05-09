@@ -53,7 +53,10 @@ const Login = () => {
             });
             login(data);
             toast.success('Welcome back to Mullenghal');
-            navigate(data.role === 'admin' ? '/admin' : '/home');
+            
+            // Redirect to the page they tried to visit, or to their default dashboard
+            const from = location.state?.from?.pathname || (data.role === 'admin' ? '/admin' : '/home');
+            navigate(from, { replace: true });
         } catch (error) {
             const message = error.response?.data?.message || 'Login failed';
             toast.error(message);
