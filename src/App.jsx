@@ -68,7 +68,7 @@ const AppRoutes = () => {
             <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
             <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
-            <Route path="/reset-password/:token" element={<PublicRoute><ResetPassword /></PublicRoute>} />
+            <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
 
             {/* Public Global Routes */}
             <Route path="/" element={<Navigate to="/home" replace />} />
