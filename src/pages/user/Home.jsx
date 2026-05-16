@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SafeImage from '../../components/common/SafeImage';
+import SEO from '../../components/common/SEO';
 
 const Home = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -62,6 +63,11 @@ const Home = () => {
 
     return (
         <Layout>
+            <SEO 
+                title="Luxury Wholesale Furniture Collections"
+                description="Experience the finest collection of premium wholesale furniture. We provide luxury furniture for showrooms and retail stores globally."
+                keywords="furniture wholesale, luxury furniture showroom, modern interior design, premium furniture supplier"
+            />
             {/* Hero Section - Full Width */}
             <section className="relative min-h-[500px] md:min-h-[650px] flex items-center rounded-[2rem] md:rounded-[3.5rem] overflow-hidden mb-10 md:mb-20 group shadow-2xl">
                 <div className="absolute inset-0 bg-slate-900">
@@ -238,7 +244,7 @@ const Home = () => {
                                 transition={{ delay: i * 0.05 }}
                                 className="group"
                             >
-                                <Link to={`/products/${p._id}`} className="block">
+                                <Link to={`/products/${p.slug}`} className="block">
                                     <div className="aspect-[3/4] rounded-[2rem] md:rounded-[3rem] overflow-hidden mb-6 md:mb-8 bg-white shadow-premium relative border border-secondary/20 group-hover:shadow-2xl transition-all duration-500">
                                         <div className="w-full h-full transform transition-transform duration-1000 group-hover:scale-110">
                                             <SafeImage src={(p.images && p.images.length > 0) ? p.images : p.image} alt={p.name} className="w-full h-full" />

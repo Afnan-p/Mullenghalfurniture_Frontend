@@ -45,6 +45,7 @@ const Navbar = () => {
         { name: 'Home', path: '/home', icon: HomeIcon },
         { name: 'Products', path: '/products', icon: Armchair },
         { name: 'About', path: '/about', icon: HelpCircle },
+        { name: 'Contact', path: '/contact', icon: Phone },
         ...(user ? [{ name: 'My Enquiries', path: '/enquiries', icon: History }] : []),
     ];
 
@@ -55,9 +56,12 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`fixed lg:relative top-0 left-0 right-0 lg:top-auto lg:left-auto lg:right-auto z-[60] transition-all duration-500 ${
-                isScrolled ? 'bg-white/95 backdrop-blur-xl shadow-premium py-4' : 'bg-white lg:bg-transparent py-4 lg:py-6'
-            }`}>
+            <nav 
+                aria-label="Main Navigation"
+                className={`fixed lg:relative top-0 left-0 right-0 lg:top-auto lg:left-auto lg:right-auto z-[60] transition-all duration-500 ${
+                    isScrolled ? 'bg-white/95 backdrop-blur-xl shadow-premium py-4' : 'bg-white lg:bg-transparent py-4 lg:py-6'
+                }`}
+            >
                 <div className="max-w-screen-2xl mx-auto px-6 md:px-12 flex items-center justify-between">
                     {/* Logo */}
                     <Link to="/home" className="flex items-center gap-3 group relative z-[70]">

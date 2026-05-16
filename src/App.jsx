@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthContext, AuthProvider } from './context/AuthContext';
+import { HelmetProvider } from 'react-helmet-async';
 
 // Pages
 import Login from './pages/auth/Login';
@@ -14,6 +15,8 @@ import UserDashboard from './pages/user/Dashboard';
 import ProductList from './pages/user/ProductList';
 import ProductDetails from './pages/user/ProductDetails';
 import EnquiryHistory from './pages/user/EnquiryHistory';
+import Contact from './pages/user/Contact';
+import NotFound from './pages/user/NotFound';
 import AdminDashboard from './pages/admin/Dashboard';
 import ProductManagement from './pages/admin/ProductManagement';
 import EnquiryManagement from './pages/admin/EnquiryManagement';
@@ -74,8 +77,9 @@ const AppRoutes = () => {
             <Route path="/" element={<Navigate to="/home" replace />} />
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route path="/products/:slug" element={<ProductDetails />} />
 
             {/* Protected User Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
@@ -90,19 +94,21 @@ const AppRoutes = () => {
             <Route path="/admin/users/:id" element={<ProtectedRoute role="admin"><UserDetails /></ProtectedRoute>} />
             
             {/* 404 Catch-all */}
-            <Route path="*" element={<Navigate to="/home" replace />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 };
 
 function App() {
     return (
-        <AuthProvider>
-            <Router>
-                <AppRoutes />
-                <Toaster position="top-right" />
-            </Router>
-        </AuthProvider>
+        <HelmetProvider>
+            <AuthProvider>
+                <Router>
+                    <AppRoutes />
+                    <Toaster position="top-right" />
+                </Router>
+            </AuthProvider>
+        </HelmetProvider>
     );
 }
 

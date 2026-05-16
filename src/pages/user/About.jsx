@@ -11,6 +11,7 @@ import {
     ArrowRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/common/SEO';
 
 const About = () => {
     const stats = [
@@ -40,6 +41,11 @@ const About = () => {
 
     return (
         <Layout>
+            <SEO 
+                title="About Our Heritage"
+                description="Learn about FurniB2B, the premier digital showroom for luxury furniture retailers. Our mission is to bridge the gap between world-class artisans and global showrooms."
+                keywords="about furniture wholesale, furniture artisans, luxury showroom history, sustainable furniture sourcing"
+            />
             {/* Page Header */}
             <section className="relative h-[350px] md:h-[450px] rounded-[2rem] md:rounded-[3.5rem] overflow-hidden mb-12 md:mb-20 shadow-2xl">
                 <img 

@@ -6,6 +6,7 @@ import { ShoppingBag, ShoppingCart, Search, Filter, Loader2, Package, Plus, Minu
 import SafeImage from '../../components/common/SafeImage';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/common/SEO';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -14,6 +15,18 @@ const ProductList = () => {
     const [submitting, setSubmitting] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [note, setNote] = useState('');
+    const [productQuantities, setProductQuantities] = useState({});
+
+    // Helper to get local quantity for a product
+    const getProductQty = (productId) => productQuantities[productId] || 1;
+
+    // Helper to update local quantity
+    const updateProductQty = (productId, delta) => {
+        setProductQuantities(prev => ({
+            ...prev,
+            [productId]: Math.max(1, (prev[productId] || 1) + delta)
+        }));
+    };
 
     useEffect(() => {
         fetchProducts();
@@ -30,16 +43,16 @@ const ProductList = () => {
         }
     };
 
-    const addToCart = (product, initialQty = 1) => {
+    const addToCart = (product, qty) => {
         const exists = cart.find(item => item.productId === product._id);
         if (exists) {
             setCart(cart.map(item => 
                 item.productId === product._id 
-                ? { ...item, quantity: item.quantity + 1 } 
+                ? { ...item, quantity: item.quantity + qty } 
                 : item
             ));
         } else {
-            setCart([...cart, { productId: product._id, name: product.name, price: product.price, quantity: initialQty }]);
+            setCart([...cart, { productId: product._id, name: product.name, price: product.price, quantity: qty }]);
         }
         toast.success(`${product.name} added to enquiry list`);
     };
@@ -76,6 +89,11 @@ const ProductList = () => {
 
     return (
         <Layout title="Furniture Catalog">
+            <SEO 
+                title="Furniture Catalog" 
+                description="Browse our extensive collection of premium wholesale furniture. From modern sofas to luxury dining sets, find the perfect pieces for your showroom."
+                keywords="furniture wholesale, luxury furniture kerala, modern sofa collections, wholesale furniture supplier"
+            />
             <div className="flex flex-col lg:flex-row gap-8">
                 {/* Catalog */}
                 <div className="flex-1 w-full min-w-0">
@@ -110,7 +128,7 @@ const ProductList = () => {
                                     whileHover={{ y: -5 }}
                                     className="bg-white rounded-[2.5rem] p-4 shadow-premium group border border-slate-100 hover:border-primary/20 transition-all flex flex-col"
                                 >
-                                    <Link to={`/products/${product._id}`} className="block">
+                                <Link to={`/products/${product.slug}`} className="block">
                                         <div className="h-56 rounded-3xl overflow-hidden relative mb-6">
                                             <SafeImage src={(product.images && product.images.length > 0) ? product.images[0].url : product.image} alt={product.name} className="w-full h-full" />
                                             <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase text-primary">
@@ -120,7 +138,7 @@ const ProductList = () => {
                                     </Link>
                                     <div className="px-2 flex-1 flex flex-col">
                                         <div className="mb-4">
-                                            <Link to={`/products/${product._id}`} className="hover:text-primary transition-colors">
+                                            <Link to={`/products/${product.slug}`} className="hover:text-primary transition-colors">
                                                 <h3 className="text-xl font-black text-slate-800 leading-tight mb-1">{product.name}</h3>
                                             </Link>
                                             <p className="text-3xl font-black text-slate-900">${product.price}</p>
@@ -134,47 +152,39 @@ const ProductList = () => {
                                                     <button 
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            const item = cart.find(i => i.productId === product._id);
-                                                            if (item && item.quantity > 1) {
-                                                                setCart(cart.map(i => i.productId === product._id ? {...i, quantity: i.quantity - 1} : i));
-                                                            }
+                                                            updateProductQty(product._id, -1);
                                                         }}
                                                         className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-slate-400 hover:text-primary shadow-sm border border-slate-100"
                                                     >
-                                                        <Minus size={14} />
+                                                        <span className="text-lg leading-none">-</span>
                                                     </button>
                                                     <span className="w-8 text-center font-black text-slate-800">
-                                                        {cart.find(i => i.productId === product._id)?.quantity || 1}
+                                                        {getProductQty(product._id)}
                                                     </span>
                                                     <button 
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            const item = cart.find(i => i.productId === product._id);
-                                                            if (item) {
-                                                                setCart(cart.map(i => i.productId === product._id ? {...i, quantity: i.quantity + 1} : i));
-                                                            } else {
-                                                                addToCart(product, 2); // Initial add with 2 if they hit +
-                                                            }
+                                                            updateProductQty(product._id, 1);
                                                         }}
                                                         className="w-8 h-8 bg-white rounded-lg flex items-center justify-center text-slate-400 hover:text-primary shadow-sm border border-slate-100"
                                                     >
-                                                        <Plus size={14} />
+                                                        <span className="text-lg leading-none">+</span>
                                                     </button>
                                                 </div>
                                             </div>
 
                                             <div className="grid grid-cols-2 gap-2">
                                                 <Link 
-                                                    to={`/products/${product._id}`}
+                                                    to={`/products/${product.slug}`}
                                                     className="bg-slate-100 text-slate-600 py-3.5 rounded-xl font-bold text-xs flex items-center justify-center hover:bg-slate-200 transition-all"
                                                 >
                                                     Details
                                                 </Link>
                                                 <button
-                                                    onClick={() => addToCart(product)}
+                                                    onClick={() => addToCart(product, getProductQty(product._id))}
                                                     className="bg-primary text-white py-3.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/10 active:scale-95"
                                                 >
-                                                    <ShoppingBag size={14} />
+                                                    <ShoppingCart size={14} />
                                                     Enquiry
                                                 </button>
                                             </div>

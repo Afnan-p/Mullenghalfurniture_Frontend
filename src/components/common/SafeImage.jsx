@@ -85,6 +85,7 @@ const SafeImage = ({ src, alt, className }) => {
                 alt={alt}
                 onLoad={handleLoad}
                 onError={handleError}
+                loading="lazy"
                 className={`w-full h-full object-cover transition-opacity duration-500 ${loading ? 'opacity-0' : 'opacity-100'}`}
             />
         </div>

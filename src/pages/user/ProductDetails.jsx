@@ -16,9 +16,10 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import SafeImage from '../../components/common/SafeImage';
+import SEO from '../../components/common/SEO';
 
 const ProductDetails = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -28,7 +29,7 @@ const ProductDetails = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const { data } = await api.get(`/products/${id}`);
+                const { data } = await api.get(`/products/${slug}`);
                 setProduct(data);
                 setLoading(false);
             } catch (error) {
@@ -37,7 +38,7 @@ const ProductDetails = () => {
             }
         };
         fetchProduct();
-    }, [id, navigate]);
+    }, [slug, navigate]);
 
     const handleQuantity = (type) => {
         if (type === 'inc') setQuantity(prev => prev + 1);
@@ -49,7 +50,7 @@ const ProductDetails = () => {
     const addToEnquiry = async () => {
         if (!user) {
             toast('Please login to send an enquiry', { icon: '🔐' });
-            navigate('/login', { state: { from: { pathname: `/products/${id}` } } });
+            navigate('/login', { state: { from: { pathname: `/products/${slug}` } } });
             return;
         }
 
@@ -102,6 +103,32 @@ const ProductDetails = () => {
 
     return (
         <Layout>
+            <SEO 
+                title={product.name}
+                description={product.description}
+                keywords={`${product.name}, ${product.category}, furniture wholesale, kerala furniture`}
+                ogImage={allImages[0]}
+                ogType="product"
+                schemaData={{
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": product.name,
+                    "image": allImages,
+                    "description": product.description,
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Mullenghal Furniture"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "url": window.location.href,
+                        "priceCurrency": "USD",
+                        "price": product.price,
+                        "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                        "itemCondition": "https://schema.org/NewCondition"
+                    }
+                }}
+            />
             {/* Back Button */}
             <button
                 onClick={() => navigate(-1)}
