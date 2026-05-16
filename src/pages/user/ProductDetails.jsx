@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import Layout from '../../components/layout/Layout';
 import api from '../../api';
 import toast from 'react-hot-toast';
@@ -63,7 +64,27 @@ const ProductDetails = () => {
         }
     };
 
-    if (loading) return <Layout><div className="h-96 flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary"></div></div></Layout>;
+    if (loading) return (
+        <Layout>
+            <div className="h-96 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-primary"></div>
+            </div>
+        </Layout>
+    );
+
+    if (!product) return (
+        <Layout>
+            <div className="h-96 flex flex-col items-center justify-center gap-4">
+                <p className="text-slate-500 font-medium">Product details not available.</p>
+                <button 
+                    onClick={() => navigate('/products')} 
+                    className="text-primary font-bold uppercase text-xs tracking-widest hover:underline"
+                >
+                    Back to Catalog
+                </button>
+            </div>
+        </Layout>
+    );
 
     // Prepare images array
     // Prepare images array and handle auto-repair for split Base64
