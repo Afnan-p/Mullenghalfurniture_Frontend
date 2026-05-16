@@ -221,18 +221,18 @@ const ProductDetails = () => {
                     </div>
 
                     <div className="mt-auto pt-8 border-t border-slate-100/50 space-y-8">
-                        <div className="flex flex-col sm:flex-row items-stretch gap-6">
-                            <div className="flex items-center justify-between bg-white/80 backdrop-blur p-2 rounded-2xl border border-white shadow-inner sm:w-48">
+                        <div className="flex flex-col sm:flex-row items-center gap-5 md:gap-6 mt-8 w-full">
+                            <div className="flex items-center justify-between bg-white/80 backdrop-blur p-1.5 rounded-2xl border border-white shadow-inner w-full sm:w-48 h-16">
                                 <button
                                     onClick={() => handleQuantity('dec')}
-                                    className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white text-slate-600 rounded-xl hover:text-primary transition-all shadow-sm active:scale-90"
+                                    className="w-12 h-12 flex items-center justify-center bg-white text-slate-600 rounded-xl hover:text-primary transition-all shadow-sm active:scale-90"
                                 >
                                     <Minus size={20} />
                                 </button>
                                 <span className="text-2xl font-black text-slate-800">{quantity}</span>
                                 <button
                                     onClick={() => handleQuantity('inc')}
-                                    className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center bg-white text-slate-600 rounded-xl hover:text-primary transition-all shadow-sm active:scale-90"
+                                    className="w-12 h-12 flex items-center justify-center bg-white text-slate-600 rounded-xl hover:text-primary transition-all shadow-sm active:scale-90"
                                 >
                                     <Plus size={20} />
                                 </button>
@@ -240,7 +240,7 @@ const ProductDetails = () => {
 
                             <button
                                 onClick={addToEnquiry}
-                                className="flex-1 h-16 md:h-16 py-5 mb-5 bg-primary text-white rounded-2xl md:rounded-[1.5rem] font-black text-base md:text-lg flex items-center justify-center gap-4 hover:bg-primary/90 transition-all shadow-2xl shadow-primary/30 active:scale-95 group"
+                                className="w-full sm:flex-1 h-16 bg-primary text-white rounded-2xl md:rounded-[1.5rem] font-black text-base md:text-lg flex items-center justify-center gap-4 hover:bg-primary/90 transition-all shadow-2xl shadow-primary/30 active:scale-95 group whitespace-nowrap px-10"
                             >
                                 <ShoppingCart size={24} className="group-hover:-translate-y-1 transition-transform" />
                                 <span className="uppercase tracking-widest">Add to Enquiry</span>

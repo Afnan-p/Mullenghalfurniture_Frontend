@@ -146,7 +146,7 @@ const ProductList = () => {
 
                                         <div className="mt-auto space-y-3">
                                             {/* Quantity Selector */}
-                                            <div className="flex items-center justify-between bg-slate-50 p-1.5 rounded-2xl border border-slate-100">
+                                            <div className="flex items-center justify-between bg-slate-50 p-1.5 rounded-2xl border border-slate-100 h-14">
                                                 <span className="pl-2 sm:pl-3 text-[10px] font-black text-slate-400 uppercase tracking-widest">Qty</span>
                                                 <div className="flex items-center gap-2 sm:gap-3">
                                                     <button 
@@ -176,13 +176,13 @@ const ProductList = () => {
                                             <div className="grid grid-cols-2 gap-2">
                                                 <Link 
                                                     to={`/products/${product.slug}`}
-                                                    className="bg-slate-100 text-slate-600 py-3.5 rounded-xl font-bold text-xs flex items-center justify-center hover:bg-slate-200 transition-all"
+                                                    className="bg-slate-100 text-slate-600 h-14 rounded-xl font-bold text-xs flex items-center justify-center hover:bg-slate-200 transition-all"
                                                 >
                                                     Details
                                                 </Link>
                                                 <button
                                                     onClick={() => addToCart(product, getProductQty(product._id))}
-                                                    className="bg-primary text-white py-3.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/10 active:scale-95"
+                                                    className="bg-primary text-white h-14 rounded-xl font-bold text-xs flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-lg shadow-primary/10 active:scale-95"
                                                 >
                                                     <ShoppingCart size={14} />
                                                     Enquiry
